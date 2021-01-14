@@ -4,9 +4,19 @@ namespace FirstBankOfSuncoast
 {
     class Program
     {
+        static void BannerMessage(string message)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(message);
+            Console.WriteLine();
+            Console.WriteLine();
+        }
         static void Main(string[] args)
         {
             // 1. Welcome to the app 
+            BannerMessage("Welcome to The First Bank of Suncoast");
+
             // 2. Class Transaction// List of Transaction 
             // 3. App Should load past transactions from a file when it first starts (fileReader)
             // 4. While the User hasn’t chosen to QUIT: (Bool is false)
@@ -68,6 +78,7 @@ namespace FirstBankOfSuncoast
             // 	Bool is True
 
             // 11. Say Goodbye
+            BannerMessage("Thank you for visiting The First Bank of Suncoast. Goodbye.");
         }
     }
 }
