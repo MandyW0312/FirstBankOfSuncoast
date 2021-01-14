@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace FirstBankOfSuncoast
 {
@@ -18,16 +20,28 @@ namespace FirstBankOfSuncoast
             BannerMessage("Welcome to The First Bank of Suncoast");
 
             // 2. Class Transaction// List of Transaction 
-            // 3. App Should load past transactions from a file when it first starts (fileReader)
+            var transaction = new List<Transaction>();
+            // 3. App Should load past transactions from a file when it first starts (fileReader) (add later)
             // 4. While the User hasn’t chosen to QUIT: (Bool is false)
             // 5. Display the Menu Options:
+            Console.WriteLine("Menu Options:");
+            Console.WriteLine();
             // 	Deposit
+            Console.WriteLine("Deposit");
             // 	Withdraw
+            Console.WriteLine("Withdraw");
             // 	Balance 
+            Console.WriteLine("Balance");
             // 	Transaction History 
+            Console.WriteLine("Transaction History");
             // 	Quit
+            Console.WriteLine("Quit");
 
             // 	Ask the user what they would like to choose?
+            Console.WriteLine();
+            Console.Write("Which of these Options would you like to choose? ");
+
+            var choice = Console.ReadLine().ToUpper().Trim();
 
             // 6. If (Deposit):
             // 	Ask the user if they would like to choose Savings or Checking?
