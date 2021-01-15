@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstBankOfSuncoast
 {
@@ -26,41 +27,61 @@ namespace FirstBankOfSuncoast
             BannerMessage("Welcome to The First Bank of Suncoast");
 
             // 2. Class Transaction// List of Transaction 
-            var transaction = new List<Transaction>();
+            var transactions = new List<Transaction>(){
+            new Transaction()
+            {
+                Account = "SAVINGS",
+                Type = "Deposit",
+                Amount = 45,
+                TimeStamp = DateTime.Now,
+            },
+            new Transaction()
+            {
+                Account = "CHECKING",
+                Type = "Deposit",
+                Amount = 50,
+                TimeStamp = DateTime.Now,
+            },
+            new Transaction()
+            {
+                Account = "SAVINGS",
+                Type = "Withdraw",
+                Amount = 8,
+                TimeStamp = DateTime.Now,
+            }
+            };
             // 3. App Should load past transactions from a file when it first starts (fileReader) (add later)
-            // 4. While the User hasn’t chosen to QUIT: (Bool is false)
             var userHasChosenToQuit = false;
             while (userHasChosenToQuit == false)
             {
-                // 5. Display the Menu Options:
                 Console.WriteLine("Menu Options:");
                 Console.WriteLine();
-                // 	Deposit
                 Console.WriteLine("Deposit");
-                // 	Withdraw
                 Console.WriteLine("Withdraw");
-                // 	Balance 
                 Console.WriteLine("Balance");
-                // 	Transaction History 
                 Console.WriteLine("Transaction History");
-                // 	Quit
                 Console.WriteLine("Quit");
 
-                // 	Ask the user what they would like to choose?
+
                 Console.WriteLine();
                 Console.Write("Which of these Options would you like to choose? ");
 
                 var choice = Console.ReadLine().ToUpper().Trim();
 
-                // 6. If (Deposit):
                 if (choice == "DEPOSIT")
                 {
-                    // 	Ask the user if they would like to choose Savings or Checking?
                     Console.Write("Would you like to Deposit money into your Savings or Checking? ");
-                    var newAccount = Console.ReadLine();
-                    // 	Ask how much they want to input into savings?
-                    Console.Write($"How much money would you like to Deposit into {newAccount}");
+                    var newAccount = Console.ReadLine().ToUpper().Trim();
+                    Console.Write($"How much money would you like to Deposit into {newAccount}? ");
                     var newAmount = int.Parse(Console.ReadLine());
+                    // if (newAccount == "SAVINGS")
+                    // {
+                    //   savingsBalance += newAccount; 
+                    // }
+                    // if (newAccount == "CHECKING")
+                    // {
+                    //   checkingBalance += newAccount;
+                    // }
                     var newTransaction = new Transaction()
                     {
                         Account = newAccount,
@@ -68,43 +89,67 @@ namespace FirstBankOfSuncoast
                         Type = "Deposit",
                         TimeStamp = DateTime.Now,
                     };
-                    //   Add the amount to Account 
-                    transaction.Add(newTransaction);
+                    transactions.Add(newTransaction);
                     // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
                 }
-                // 7. If (Withdraw):
+
                 if (choice == "WITHDRAW")
                 {
-                    // 	Ask the user if they would like to choose Savings or Checking?
-                    Console.Write("Would you like to Withdraw money into your Savings or Checking? ");
+                    Console.Write("Would you like to Withdraw money from your Savings or Checking? ");
                     var answer = Console.ReadLine().ToUpper().Trim();
-                    // 	If (Savings)
+
                     if (answer == "SAVINGS")
                     {
-                        // 	Find Savings
-                        var findSavings = transaction.Find(money => money.Account == "SAVINGS");
-                        // 	Ask how much they want to withdraw from savings?
+                        var findSavings = transactions.Where(money => money.Account == "SAVINGS");
+                        var findDeposit = findSavings.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+                        var findWithdraw = findSavings.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+                        var difference = (findDeposit - findWithdraw);
                         Console.Write("How much money would you like to Withdraw from your Savings? ");
-                        var amount = int.Parse(Console.ReadLine());
-                        // 		If there is enough money in account (account < 0)
-                        if
+                        var withdrawAmount = int.Parse(Console.ReadLine());
+                        if (difference < withdrawAmount)
                         {
-                            // 			Remove money from savings
-                            // 		Write all the transactions to the file (the four lines of code for the fileWriter)(add later)
+                            Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Withdraw {withdrawAmount}");
                         }
-                        // 		If there isn’t (account < 0)
-                        // 			Do not remove money from savings
+                        if (difference > withdrawAmount)
+                        {
+                            var newTransaction = new Transaction()
+                            {
+                                Account = answer,
+                                Amount = withdrawAmount,
+                                Type = "Withdraw",
+                                TimeStamp = DateTime.Now,
+                            };
+                            transactions.Add(newTransaction);
+                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                        }
                     }
-                    // 	If (Checking)
+
                     if (answer == "CHECKING")
                     {
-                        // 	Find Checking
-                        // 	Ask how much they want to withdraw from checking?
-                        // If there is enough money in account
-                        // 			Remove money from savings
-                        // 		Write all the transactions to the file (the four lines of code 	for the fileWriter)
-                        // 		If there isn’t (account < 0)
-                        // 			Do not remove money from savings
+                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
+                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+                        var difference = (findDeposit - findWithdraw);
+                        Console.Write("How much money would you like to Withdraw from your Savings? ");
+                        var withdrawAmount = int.Parse(Console.ReadLine());
+                        if (difference < withdrawAmount)
+                        {
+                            Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Withdraw {withdrawAmount}");
+                        }
+                        if (difference > withdrawAmount)
+                        {
+                            var newTransaction = new Transaction()
+                            {
+                                Account = answer,
+                                Amount = withdrawAmount,
+                                Type = "Withdraw",
+                                TimeStamp = DateTime.Now,
+                            };
+                            transactions.Add(newTransaction);
+                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                        }
                     }
                 }
                 // 8. If (Transaction History)

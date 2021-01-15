@@ -27,15 +27,22 @@ EXAMPLES
 
 - Deposits 30 to savings, Deposits 45 to checking, withdraws 40 from savings. The system does not allow me to overdraft. So 2 transactions, 30 in savings and 45 in checking
 
+| Type     | Account  | Amount |
+| -------- | -------- | ------ |
+| Deposit  | Savings  | 20     |
+| Deposit  | Savings  | 2000   |
+| Deposit  | Checking | 3000   |
+| Withdraw | Checking | 42     |
+
 Data Structure
 
 - Create a Class called Transaction
 
 - Properties:  
 -- Amount (int): (how much is in the transaction)
--- Kind of Transactions (string): Deposit, Withdraw 
--- TimeStamp (DateTime) (Could add a time stamp on your transactions as well.)
--- Where the transaction is going (string): Checking, Savings
+-- Type (string): Deposit, Withdraw 
+-- TimeStamp (DateTime) 
+-- Account (string): Checking, Savings
 
 - Add a List<Transactions>
 
