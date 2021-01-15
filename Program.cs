@@ -23,23 +23,21 @@ namespace FirstBankOfSuncoast
         }
         static void Main(string[] args)
         {
-            // 1. Welcome to the app 
             BannerMessage("Welcome to The First Bank of Suncoast");
 
-            // 2. Class Transaction// List of Transaction 
             var transactions = new List<Transaction>(){
             new Transaction()
             {
                 Account = "SAVINGS",
                 Type = "Deposit",
-                Amount = 45,
+                Amount = 500,
                 TimeStamp = DateTime.Now,
             },
             new Transaction()
             {
                 Account = "CHECKING",
                 Type = "Deposit",
-                Amount = 50,
+                Amount = 400,
                 TimeStamp = DateTime.Now,
             },
             new Transaction()
@@ -74,14 +72,7 @@ namespace FirstBankOfSuncoast
                     var newAccount = Console.ReadLine().ToUpper().Trim();
                     Console.Write($"How much money would you like to Deposit into {newAccount}? ");
                     var newAmount = int.Parse(Console.ReadLine());
-                    // if (newAccount == "SAVINGS")
-                    // {
-                    //   savingsBalance += newAccount; 
-                    // }
-                    // if (newAccount == "CHECKING")
-                    // {
-                    //   checkingBalance += newAccount;
-                    // }
+
                     var newTransaction = new Transaction()
                     {
                         Account = newAccount,
@@ -105,6 +96,8 @@ namespace FirstBankOfSuncoast
                         var findWithdraw = findSavings.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
 
                         var difference = (findDeposit - findWithdraw);
+
+
                         Console.Write("How much money would you like to Withdraw from your Savings? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
                         if (difference < withdrawAmount)
@@ -163,7 +156,7 @@ namespace FirstBankOfSuncoast
                         var findSavings = transactions.Where(money => money.Account == "SAVINGS");
                         foreach (var save in findSavings)
                         {
-                            Console.WriteLine($"Your Transaction History: Your {save.Account} was {save.Type}. ");
+                            Console.WriteLine($"Your Transaction History: Your {save.Account} was {save.Type} for the amount of {save.Amount}. ");
                         }
                     }
 
@@ -172,7 +165,7 @@ namespace FirstBankOfSuncoast
                         var findChecking = transactions.Where(money => money.Account == "SAVINGS");
                         foreach (var check in findChecking)
                         {
-                            Console.WriteLine($"Your Transaction History: Your {check.Account} was {check.Type}. ");
+                            Console.WriteLine($"Your Transaction History: Your {check.Account} was {check.Type} for the amount of {check.Amount}. ");
                         }
                     }
                 }

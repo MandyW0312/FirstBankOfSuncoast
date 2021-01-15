@@ -63,48 +63,82 @@ Algorithm
 
 6. If (Deposit):
 	Ask the user if they would like to choose Savings or Checking?
+	Answer=Account 
 	Ask how much they want to input into savings?
-  Add the amount to Account 
+	Answer=Amount
+  Add a new instance of Transaction:
+		Account
+		Amount
+		Type
+		TimeStamp
+	Add Transaction
 
 	Write all the transactions to the file (the four lines of code for the  fileWriter)
-
 
 
 7. If (Withdraw):
 	Ask the user if they would like to choose Savings or Checking?
 
 	If (Savings)
-	Find Savings
+	Filter Out Savings
+		Filter Out the Deposit and Sum the Total of the Deposit
+		Filter Out the Withdraw and Sum the Total of the Withdraw
+		difference= Deposit Amount - Withdraw Amount
 	Ask how much they want to withdraw from savings?
-		If there is enough money in account 
-			Remove money from savings
+		If (difference < Asking Amount)
+			Say "No funds"
+		If (difference > Asking Amount)
+			Add a new instance of Transaction:
+			Account
+			Amount
+			Type
+			TimeStamp
+			Add Transaction
 		Write all the transactions to the file (the four lines of code for the fileWriter)
-		If there isn’t (account < 0)
-			Do not remove money from savings
 	
 	If (Checking)
-	Find Checking
-	Ask how much they want to withdraw from checking?
-If there is enough money in account
-			Remove money from savings
-		Write all the transactions to the file (the four lines of code 	for the fileWriter)
-		If there isn’t (account < 0)
-			Do not remove money from savings
+	Filter Out Checking
+		Filter Out the Deposit and Sum the Total of the Deposit
+		Filter Out the Withdraw and Sum the Total of the Withdraw
+		difference= Deposit Amount - Withdraw Amount
+	Ask how much they want to withdraw from savings?
+		If (difference < Asking Amount)
+			Say "No funds"
+		If (difference > Asking Amount)
+			Add a new instance of Transaction:
+			Account
+			Amount
+			Type
+			TimeStamp
+			Add Transaction
+		Write all the transactions to the file (the four lines of code for the fileWriter)
 
 
 8. If (Transaction History)
 	Ask the user if they would like to choose Savings or Checking?
 	If (Savings)
-	Print out the Transaction History for Savings
+	Filter Out the Account by Savings
+	Foreach(var save in savings)
+	Print out your transaction history for savings
 	If (Checking)
-	Print out the Transaction History for Checking
+	Filter Out the Account by Checking
+	Foreach(var save in savings)
+	Print out your transaction history for savings
 
 9. If (Balance)
 	Ask the user if they would like to choose Savings or Checking?
 	If (Savings) 
-	See the Balance of the Savings
+	Filter Out Savings
+		Filter Out the Deposit and Sum the Total of the Deposit
+		Filter Out the Withdraw and Sum the Total of the Withdraw
+		difference= Deposit Amount - Withdraw Amount
+	Print out the difference
 	If (Checking)
-	See the Balance of the Checking
+	Filter Out Checking
+		Filter Out the Deposit and Sum the Total of the Deposit
+		Filter Out the Withdraw and Sum the Total of the Withdraw
+		difference= Deposit Amount - Withdraw Amount
+	Print out the difference
 
 10. If (Quit)
 	Bool is True
