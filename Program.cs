@@ -176,31 +176,39 @@ namespace FirstBankOfSuncoast
                         }
                     }
                 }
-                // 9. If (Balance)
+
                 if (choice == "BALANCE")
                 {
-                    // 	Ask the user if they would like to choose Savings or Checking?
                     Console.Write("Would you like to view the Balance for your Savings or Checking? ");
                     var answer = Console.ReadLine().ToUpper().Trim();
-                    // 	If (Savings) 
+
                     if (answer == "SAVINGS")
                     {
-                        // 	See the Balance of the Savings
+                        var findSavings = transactions.Where(money => money.Account == "SAVINGS");
+                        var findDeposit = findSavings.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+                        var findWithdraw = findSavings.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+                        var difference = (findDeposit - findWithdraw);
+                        Console.WriteLine($"Your Balance in {answer} is {difference}.");
                     }
-                    // 	If (Checking)
+
                     if (answer == "CHECKING")
                     {
-                        // 	See the Balance of the Checking
+                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
+                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+                        var difference = (findDeposit - findWithdraw);
+                        Console.WriteLine($"Your Balance in {answer} is {difference}.");
                     }
                 }
-                // 10. If (Quit)
+
                 if (choice == "QUIT")
                 {
-                    // 	Bool is True
                     userHasChosenToQuit = true;
                 }
             }
-            // 11. Say Goodbye
+
             BannerMessage("Thank you for visiting The First Bank of Suncoast. Goodbye.");
         }
     }
