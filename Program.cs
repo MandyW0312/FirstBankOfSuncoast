@@ -152,21 +152,28 @@ namespace FirstBankOfSuncoast
                         }
                     }
                 }
-                // 8. If (Transaction History)
+
                 if (choice == "TRANSACTION HISTORY")
                 {
-                    // 	Ask the user if they would like to choose Savings or Checking?
                     Console.Write("Would you like to view the Transaction History for your Savings or Checking? ");
                     var answer = Console.ReadLine().ToUpper().Trim();
-                    // 	If (Savings)
+
                     if (answer == "SAVINGS")
                     {
-                        // 	Print out the Transaction History for Savings
+                        var findSavings = transactions.Where(money => money.Account == "SAVINGS");
+                        foreach (var save in findSavings)
+                        {
+                            Console.WriteLine($"Your Transaction History: Your {save.Account} was {save.Type}. ");
+                        }
                     }
-                    // 	If (Checking)
+
                     if (answer == "CHECKING")
                     {
-                        // 	Print out the Transaction History for Checking
+                        var findChecking = transactions.Where(money => money.Account == "SAVINGS");
+                        foreach (var check in findChecking)
+                        {
+                            Console.WriteLine($"Your Transaction History: Your {check.Account} was {check.Type}. ");
+                        }
                     }
                 }
                 // 9. If (Balance)
