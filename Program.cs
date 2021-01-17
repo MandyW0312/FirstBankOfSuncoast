@@ -56,6 +56,7 @@ namespace FirstBankOfSuncoast
                 Console.WriteLine();
                 Console.WriteLine("Deposit");
                 Console.WriteLine("Withdraw");
+                Console.WriteLine("Transfer");
                 Console.WriteLine("Balance");
                 Console.WriteLine("Transaction History");
                 Console.WriteLine("Quit");
@@ -97,7 +98,6 @@ namespace FirstBankOfSuncoast
 
                         var difference = (findDeposit - findWithdraw);
 
-
                         Console.Write("How much money would you like to Withdraw from your Savings? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
                         if (difference < withdrawAmount)
@@ -125,7 +125,8 @@ namespace FirstBankOfSuncoast
                         var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
 
                         var difference = (findDeposit - findWithdraw);
-                        Console.Write("How much money would you like to Withdraw from your Savings? ");
+
+                        Console.Write("How much money would you like to Withdraw from your Checking? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
                         if (difference < withdrawAmount)
                         {
@@ -141,6 +142,82 @@ namespace FirstBankOfSuncoast
                                 TimeStamp = DateTime.Now,
                             };
                             transactions.Add(newTransaction);
+                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                        }
+                    }
+                }
+                if (choice == "TRANSFER")
+                {
+                    Console.Write("Would you like to transfer money from your Checking to your Savings (select CHECKING) or from your Savings to your Checking (select SAVINGS)? ");
+                    var answer = Console.ReadLine().ToUpper().Trim();
+                    if (answer == "CHECKING")
+                    {
+                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
+                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+                        var difference = (findDeposit - findWithdraw);
+
+                        Console.Write("How much money would you like to Transfer from your Checking? ");
+                        var withdrawAmount = int.Parse(Console.ReadLine());
+                        if (difference < withdrawAmount)
+                        {
+                            Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Transfer {withdrawAmount}");
+                        }
+                        if (difference > withdrawAmount)
+                        {
+                            var newTransaction = new Transaction()
+                            {
+                                Account = answer,
+                                Amount = withdrawAmount,
+                                Type = "Withdraw",
+                                TimeStamp = DateTime.Now,
+                            };
+                            transactions.Add(newTransaction);
+                            var anotherTransaction = new Transaction()
+                            {
+                                Account = "SAVINGS",
+                                Amount = withdrawAmount,
+                                Type = "Deposit",
+                                TimeStamp = DateTime.Now,
+                            };
+                            transactions.Add(anotherTransaction);
+                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                        }
+                    }
+
+                    if (answer == "SAVINGS")
+                    {
+                        var findChecking = transactions.Where(money => money.Account == "SAVINGS");
+                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+                        var difference = (findDeposit - findWithdraw);
+
+                        Console.Write("How much money would you like to Transfer from your Savings? ");
+                        var withdrawAmount = int.Parse(Console.ReadLine());
+                        if (difference < withdrawAmount)
+                        {
+                            Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Transfer {withdrawAmount}");
+                        }
+                        if (difference > withdrawAmount)
+                        {
+                            var newTransaction = new Transaction()
+                            {
+                                Account = answer,
+                                Amount = withdrawAmount,
+                                Type = "Withdraw",
+                                TimeStamp = DateTime.Now,
+                            };
+                            transactions.Add(newTransaction);
+                            var anotherTransaction = new Transaction()
+                            {
+                                Account = "CHECKING",
+                                Amount = withdrawAmount,
+                                Type = "Deposit",
+                                TimeStamp = DateTime.Now,
+                            };
+                            transactions.Add(anotherTransaction);
                             // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
                         }
                     }
@@ -162,7 +239,7 @@ namespace FirstBankOfSuncoast
 
                     if (answer == "CHECKING")
                     {
-                        var findChecking = transactions.Where(money => money.Account == "SAVINGS");
+                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
                         foreach (var check in findChecking)
                         {
                             Console.WriteLine($"Your Transaction History: Your {check.Account} was {check.Type} for the amount of {check.Amount}. ");
