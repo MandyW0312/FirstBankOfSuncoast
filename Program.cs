@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using CsvHelper;
 
 namespace FirstBankOfSuncoast
 {
@@ -93,6 +96,10 @@ namespace FirstBankOfSuncoast
                     };
                     transactions.Add(newTransaction);
                     // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                    var fileWriter = new StreamWriter("transactions.csv");
+                    var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
+                    csvWriter.WriteRecords(transactions);
+                    fileWriter.Close();
                 }
 
                 if (choice == "WITHDRAW")
@@ -121,6 +128,10 @@ namespace FirstBankOfSuncoast
                             };
                             transactions.Add(newTransaction);
                             // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                            var fileWriter = new StreamWriter("transactions.csv");
+                            var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
+                            csvWriter.WriteRecords(transactions);
+                            fileWriter.Close();
                         }
                     }
 
@@ -145,6 +156,10 @@ namespace FirstBankOfSuncoast
                             };
                             transactions.Add(newTransaction);
                             // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                            var fileWriter = new StreamWriter("transactions.csv");
+                            var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
+                            csvWriter.WriteRecords(transactions);
+                            fileWriter.Close();
                         }
                     }
                 }
@@ -181,6 +196,10 @@ namespace FirstBankOfSuncoast
                             };
                             transactions.Add(anotherTransaction);
                             // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                            var fileWriter = new StreamWriter("transactions.csv");
+                            var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
+                            csvWriter.WriteRecords(transactions);
+                            fileWriter.Close();
                         }
                     }
 
@@ -213,6 +232,10 @@ namespace FirstBankOfSuncoast
                             };
                             transactions.Add(anotherTransaction);
                             // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+                            var fileWriter = new StreamWriter("transactions.csv");
+                            var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
+                            csvWriter.WriteRecords(transactions);
+                            fileWriter.Close();
                         }
                     }
                 }
