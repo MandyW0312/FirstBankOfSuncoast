@@ -36,32 +36,36 @@ namespace FirstBankOfSuncoast
         }
         static void Main(string[] args)
         {
+            var fileReader = new StreamReader("transactions.csv");
+            var csvReader = new CsvReader(fileReader, CultureInfo.InvariantCulture);
+            var transactions = csvReader.GetRecords<Transaction>().ToList();
+            fileReader.Close();
+
             BannerMessage("Welcome to The First Bank of Suncoast");
 
-            var transactions = new List<Transaction>(){
-            new Transaction()
-            {
-                Account = "SAVINGS",
-                Type = "Deposit",
-                Amount = 500,
-                TimeStamp = DateTime.Now,
-            },
-            new Transaction()
-            {
-                Account = "CHECKING",
-                Type = "Deposit",
-                Amount = 400,
-                TimeStamp = DateTime.Now,
-            },
-            new Transaction()
-            {
-                Account = "SAVINGS",
-                Type = "Withdraw",
-                Amount = 8,
-                TimeStamp = DateTime.Now,
-            }
-            };
-            // 3. App Should load past transactions from a file when it first starts (fileReader) (add later)
+            // var transactions = new List<Transaction>(){
+            // new Transaction()
+            // {
+            //     Account = "SAVINGS",
+            //     Type = "Deposit",
+            //     Amount = 500,
+            //     TimeStamp = DateTime.Now,
+            // },
+            // new Transaction()
+            // {
+            //     Account = "CHECKING",
+            //     Type = "Deposit",
+            //     Amount = 400,
+            //     TimeStamp = DateTime.Now,
+            // },
+            // new Transaction()
+            // {
+            //     Account = "SAVINGS",
+            //     Type = "Withdraw",
+            //     Amount = 8,
+            //     TimeStamp = DateTime.Now,
+            // }
+            // };
             var userHasChosenToQuit = false;
             while (userHasChosenToQuit == false)
             {
@@ -95,7 +99,7 @@ namespace FirstBankOfSuncoast
                         TimeStamp = DateTime.Now,
                     };
                     transactions.Add(newTransaction);
-                    // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+
                     var fileWriter = new StreamWriter("transactions.csv");
                     var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
                     csvWriter.WriteRecords(transactions);
@@ -127,7 +131,7 @@ namespace FirstBankOfSuncoast
                                 TimeStamp = DateTime.Now,
                             };
                             transactions.Add(newTransaction);
-                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+
                             var fileWriter = new StreamWriter("transactions.csv");
                             var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
                             csvWriter.WriteRecords(transactions);
@@ -155,7 +159,7 @@ namespace FirstBankOfSuncoast
                                 TimeStamp = DateTime.Now,
                             };
                             transactions.Add(newTransaction);
-                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+
                             var fileWriter = new StreamWriter("transactions.csv");
                             var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
                             csvWriter.WriteRecords(transactions);
@@ -195,7 +199,7 @@ namespace FirstBankOfSuncoast
                                 TimeStamp = DateTime.Now,
                             };
                             transactions.Add(anotherTransaction);
-                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+
                             var fileWriter = new StreamWriter("transactions.csv");
                             var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
                             csvWriter.WriteRecords(transactions);
@@ -231,7 +235,7 @@ namespace FirstBankOfSuncoast
                                 TimeStamp = DateTime.Now,
                             };
                             transactions.Add(anotherTransaction);
-                            // 	Write all the transactions to the file (the four lines of code for the  fileWriter) (add later)
+
                             var fileWriter = new StreamWriter("transactions.csv");
                             var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
                             csvWriter.WriteRecords(transactions);
