@@ -13,6 +13,16 @@ namespace FirstBankOfSuncoast
     }
     class Program
     {
+        public static int FindTheTotal(List<Transaction> transactionList, string listOfTransactionsToSearch)
+        {
+
+            var findSavings = transactionList.Where(money => money.Account == listOfTransactionsToSearch);
+            var findDeposit = findSavings.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
+            var findWithdraw = findSavings.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
+
+            var difference = (findDeposit - findWithdraw);
+            return difference;
+        }
         static void BannerMessage(string message)
         {
             Console.WriteLine();
@@ -92,19 +102,15 @@ namespace FirstBankOfSuncoast
 
                     if (answer == "SAVINGS")
                     {
-                        var findSavings = transactions.Where(money => money.Account == "SAVINGS");
-                        var findDeposit = findSavings.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
-                        var findWithdraw = findSavings.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
-
-                        var difference = (findDeposit - findWithdraw);
+                        var total = FindTheTotal(transactions, answer);
 
                         Console.Write("How much money would you like to Withdraw from your Savings? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
-                        if (difference < withdrawAmount)
+                        if (total < withdrawAmount)
                         {
                             Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Withdraw {withdrawAmount}");
                         }
-                        if (difference > withdrawAmount)
+                        if (total > withdrawAmount)
                         {
                             var newTransaction = new Transaction()
                             {
@@ -120,19 +126,15 @@ namespace FirstBankOfSuncoast
 
                     if (answer == "CHECKING")
                     {
-                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
-                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
-                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
-
-                        var difference = (findDeposit - findWithdraw);
+                        var total = FindTheTotal(transactions, answer);
 
                         Console.Write("How much money would you like to Withdraw from your Checking? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
-                        if (difference < withdrawAmount)
+                        if (total < withdrawAmount)
                         {
                             Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Withdraw {withdrawAmount}");
                         }
-                        if (difference > withdrawAmount)
+                        if (total > withdrawAmount)
                         {
                             var newTransaction = new Transaction()
                             {
@@ -152,19 +154,15 @@ namespace FirstBankOfSuncoast
                     var answer = Console.ReadLine().ToUpper().Trim();
                     if (answer == "CHECKING")
                     {
-                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
-                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
-                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
-
-                        var difference = (findDeposit - findWithdraw);
+                        var total = FindTheTotal(transactions, answer);
 
                         Console.Write("How much money would you like to Transfer from your Checking? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
-                        if (difference < withdrawAmount)
+                        if (total < withdrawAmount)
                         {
                             Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Transfer {withdrawAmount}");
                         }
-                        if (difference > withdrawAmount)
+                        if (total > withdrawAmount)
                         {
                             var newTransaction = new Transaction()
                             {
@@ -188,19 +186,15 @@ namespace FirstBankOfSuncoast
 
                     if (answer == "SAVINGS")
                     {
-                        var findChecking = transactions.Where(money => money.Account == "SAVINGS");
-                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
-                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
-
-                        var difference = (findDeposit - findWithdraw);
+                        var total = FindTheTotal(transactions, answer);
 
                         Console.Write("How much money would you like to Transfer from your Savings? ");
                         var withdrawAmount = int.Parse(Console.ReadLine());
-                        if (difference < withdrawAmount)
+                        if (total < withdrawAmount)
                         {
                             Console.WriteLine($"Insufficient funds in {answer}, you will not be able to Transfer {withdrawAmount}");
                         }
-                        if (difference > withdrawAmount)
+                        if (total > withdrawAmount)
                         {
                             var newTransaction = new Transaction()
                             {
@@ -254,22 +248,14 @@ namespace FirstBankOfSuncoast
 
                     if (answer == "SAVINGS")
                     {
-                        var findSavings = transactions.Where(money => money.Account == "SAVINGS");
-                        var findDeposit = findSavings.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
-                        var findWithdraw = findSavings.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
-
-                        var difference = (findDeposit - findWithdraw);
-                        Console.WriteLine($"Your Balance in {answer} is {difference}.");
+                        var total = FindTheTotal(transactions, answer);
+                        Console.WriteLine($"Your Balance in {answer} is {total}.");
                     }
 
                     if (answer == "CHECKING")
                     {
-                        var findChecking = transactions.Where(money => money.Account == "CHECKING");
-                        var findDeposit = findChecking.Where(money => money.Type == "Deposit").Sum(money => money.Amount);
-                        var findWithdraw = findChecking.Where(money => money.Type == "Withdraw").Sum(money => money.Amount);
-
-                        var difference = (findDeposit - findWithdraw);
-                        Console.WriteLine($"Your Balance in {answer} is {difference}.");
+                        var total = FindTheTotal(transactions, answer);
+                        Console.WriteLine($"Your Balance in {answer} is {total}.");
                     }
                 }
 
